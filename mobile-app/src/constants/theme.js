@@ -22,7 +22,8 @@ export function getApiUrl() {
     return getWebApiUrl();
   }
 
-  if (!__DEV__ && CONFIGURED_API) {
+  // .env (EXPO_PUBLIC_API_URL) — server ama local, had iyo jeer ka hormari
+  if (CONFIGURED_API) {
     return CONFIGURED_API;
   }
 
@@ -34,8 +35,6 @@ export function getApiUrl() {
     const host = debuggerHost.split(':')[0];
     return `http://${host}:${getDevPort()}/api`;
   }
-
-  if (CONFIGURED_API) return CONFIGURED_API;
 
   if (Platform.OS === 'android') {
     return `http://10.0.2.2:${getDevPort()}/api`;
