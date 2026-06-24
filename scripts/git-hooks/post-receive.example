@@ -6,7 +6,6 @@
 # Kadib: git push production main
 
 set -euo pipefail
-
 DEPLOY_DIR="/opt/dsms"
 BRANCH="main"
 
