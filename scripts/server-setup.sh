@@ -29,4 +29,4 @@ fi
 echo ""
 echo "Setup dhammaaday."
 echo "Kadib clone repo-ga oo samee .env.production + backend/.env, kadib:"
-echo "  npm run install:server && sudo PM2_CMD='sudo pm2' npm run deploy"
+echo "  npm run install:server && npm run deploy"

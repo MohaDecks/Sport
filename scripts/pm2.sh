@@ -2,20 +2,32 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PM2="${PM2_CMD:-pm2}"
 ACTION="${1:-reload}"
 
 cd "$ROOT"
 
+# PM2_CMD="sudo pm2" waa inuu u kala baxaa (laba eray), ma aha hal command
+if [ "$(id -u)" -eq 0 ]; then
+  PM2_CMD="${PM2_CMD:-pm2}"
+  PM2_CMD="${PM2_CMD#sudo }"
+else
+  PM2_CMD="${PM2_CMD:-pm2}"
+fi
+
+run_pm2() {
+  # shellcheck disable=SC2086
+  $PM2_CMD "$@"
+}
+
 case "$ACTION" in
   start)
-    "$PM2" start ecosystem.config.cjs
+    run_pm2 start ecosystem.config.cjs
     ;;
   reload)
-    if "$PM2" describe dsms-api >/dev/null 2>&1; then
-      "$PM2" reload ecosystem.config.cjs --update-env
+    if run_pm2 describe dsms-api >/dev/null 2>&1; then
+      run_pm2 reload ecosystem.config.cjs --update-env
     else
-      "$PM2" start ecosystem.config.cjs
+      run_pm2 start ecosystem.config.cjs
     fi
     ;;
   *)
@@ -24,7 +36,7 @@ case "$ACTION" in
     ;;
 esac
 
-"$PM2" save
+run_pm2 save
 echo ""
 echo "==> PM2 processes:"
-"$PM2" list
+run_pm2 list

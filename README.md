@@ -130,15 +130,18 @@ git clone <repo-url> /opt/dsms && cd /opt/dsms
 cp .env.production.example .env.production
 # Ku samee backend/.env (MongoDB, JWT_SECRET, iwm.)
 npm run install:server
-sudo PM2_CMD="sudo pm2" npm run deploy
+npm run deploy
 ```
 
 ### Marka kasta oo update ah
 
 ```bash
 cd /opt/dsms
-git pull && npm run install:server && sudo PM2_CMD="sudo pm2" npm run deploy
+git pull && npm run install:server && npm run deploy
 ```
+
+> **Root user** (`root@server`): isticmaal `npm run deploy` kaliya.  
+> **User kale**: `PM2_CMD="sudo pm2" npm run deploy`
 
 Deploy-ku wuxuu:
 1. Dhisaa admin portal (`admin-portal/dist`)

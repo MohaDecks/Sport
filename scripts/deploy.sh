@@ -2,7 +2,6 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PM2="${PM2_CMD:-pm2}"
 
 cd "$ROOT"
 
