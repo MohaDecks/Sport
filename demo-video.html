@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>District Sports Management System — Demo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+      overflow: hidden;
+      height: 100vh;
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 48px;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      pointer-events: none;
+      text-align: center;
+    }
+    .slide.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 16px; }
+    h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); color: #60a5fa; margin-bottom: 24px; }
+    p, li { font-size: clamp(1rem, 2vw, 1.25rem); line-height: 1.7; color: #cbd5e1; max-width: 900px; }
+    ul { text-align: left; list-style: none; margin-top: 16px; }
+    li { padding: 8px 0; padding-left: 28px; position: relative; }
+    li::before { content: '▸'; position: absolute; left: 0; color: #3b82f6; }
+    .badge {
+      display: inline-block;
+      background: #2563eb;
+      color: #fff;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin: 4px;
+    }
+    .diagram {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 32px;
+    }
+    .box {
+      background: #1e293b;
+      border: 2px solid #334155;
+      border-radius: 16px;
+      padding: 24px 32px;
+      min-width: 180px;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .box.admin { border-color: #8b5cf6; color: #c4b5fd; }
+    .box.backend { border-color: #f59e0b; color: #fcd34d; }
+    .box.mobile { border-color: #22c55e; color: #86efac; }
+    .box.db { border-color: #64748b; color: #94a3b8; font-size: 0.95rem; }
+    .arrow { font-size: 2rem; color: #475569; }
+    .flow-col { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+    .controls {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 100;
+      background: rgba(15,23,42,0.9);
+      padding: 12px 20px;
+      border-radius: 40px;
+      border: 1px solid #334155;
+    }
+    button {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 24px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    button:hover { background: #1d4ed8; }
+    button.secondary { background: #334155; }
+    .progress {
+      position: fixed;
+      top: 0; left: 0; height: 4px;
+      background: #2563eb;
+      transition: width 0.3s linear;
+      z-index: 100;
+    }
+    .counter {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      color: #64748b;
+      font-size: 0.9rem;
+      z-index: 100;
+    }
+    .subtitle { color: #94a3b8; font-size: 1.1rem; margin-top: 8px; }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin-top: 24px;
+      text-align: left;
+    }
+    .card {
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #334155;
+    }
+    .card h3 { color: #60a5fa; margin-bottom: 8px; font-size: 1rem; }
+    .card p { font-size: 0.9rem; color: #94a3b8; }
+    .logo { font-size: 4rem; margin-bottom: 16px; }
+    .highlight { color: #60a5fa; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <div class="counter" id="counter">1 / 8</div>
+
+  <!-- Slide 1: Title -->
+  <div class="slide active" data-duration="6000">
+    <div class="logo">⚽</div>
+    <h1>District Sports Management System</h1>
+    <p class="subtitle">DSMS — Maamulka Ciyaaraha Degmada</p>
+    <p style="margin-top:24px">Admin Portal · Mobile App · Backend API</p>
+    <div style="margin-top:32px">
+      <span class="badge">React</span>
+      <span class="badge">Node.js</span>
+      <span class="badge">MongoDB</span>
+      <span class="badge">Expo</span>
+    </div>
+  </div>
+
+  <!-- Slide 2: Architecture -->
+  <div class="slide" data-duration="8000">
+    <h2>Sida System-ku u Isku Xiranyahay</h2>
+    <div class="diagram">
+      <div class="flow-col">
+        <div class="box admin">🖥️ Admin Portal<br><small>localhost:5173</small></div>
+        <div class="box mobile">📱 Mobile App<br><small>APK / Expo</small></div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="box backend">⚙️ Backend API<br><small>localhost:5001</small></div>
+      <div class="arrow">→</div>
+      <div class="box db">🗄️ MongoDB<br><small>Xogta</small></div>
+    </div>
+    <p style="margin-top:32px">Admin iyo Mobile labaduba waxay la xiriiraan <span class="highlight">Backend API</span> isku mid ah.</p>
+  </div>
+
+  <!-- Slide 3: Backend -->
+  <div class="slide" data-duration="7000">
+    <h2>1. Backend — Server-ka Xogta</h2>
+    <ul>
+      <li>Node.js + Express — REST API</li>
+      <li>MongoDB — kaydinta xogta (teams, players, matches…)</li>
+      <li>JWT Authentication — login ammaan ah</li>
+      <li>Push Notifications — Expo Push Service</li>
+    </ul>
+    <p style="margin-top:24px"><span class="highlight">Port 5001</span> — dhammaan app-yadu halkan ayay ka helaan xogta</p>
+  </div>
+
+  <!-- Slide 4: Admin -->
+  <div class="slide" data-duration="9000">
+    <h2>2. Admin Portal — Maamulka</h2>
+    <div class="grid-3">
+      <div class="card"><h3>📊 Dashboard</h3><p>Stats: teams, players, matches</p></div>
+      <div class="card"><h3>👥 Teams & Players</h3><p>Ku dar, beddel, tirtir</p></div>
+      <div class="card"><h3>📅 Matches</h3><p>Jadwal & natiijooyin</p></div>
+      <div class="card"><h3>🏆 Tournaments</h3><p>Tartamada & tabellada</p></div>
+      <div class="card"><h3>📰 News</h3><p>Wararka & banners mobile-ka</p></div>
+      <div class="card"><h3>🔔 Notifications</h3><p>Ogeysiis u dir coach/team</p></div>
+    </div>
+    <p style="margin-top:20px">Login: <span class="highlight">admin@dsms.com</span> / admin123</p>
+  </div>
+
+  <!-- Slide 5: Mobile -->
+  <div class="slide" data-duration="9000">
+    <h2>3. Mobile App — Coach & Team</h2>
+    <div class="grid-3">
+      <div class="card"><h3>🏠 Dashboard</h3><p>Banners, stats, wararka</p></div>
+      <div class="card"><h3>📅 Schedule</h3><p>Jadwalka ciyaaraha</p></div>
+      <div class="card"><h3>👤 Players</h3><p>Ciyaartoyda kooxda</p></div>
+      <div class="card"><h3>🏆 Standings</h3><p>Tabellada tartanka</p></div>
+      <div class="card"><h3>🔔 Notifications</h3><p>Ogeysiisyada admin</p></div>
+    </div>
+    <p style="margin-top:20px">Coach: <span class="highlight">ahmed@dsms.com</span> · Team: <span class="highlight">team@dsms.com</span></p>
+  </div>
+
+  <!-- Slide 6: Flow -->
+  <div class="slide" data-duration="8000">
+    <h2>Sida Xogtu u Socoto</h2>
+    <ul>
+      <li>Admin wuxuu ku daraa <strong>Team cusub</strong> → MongoDB → Coach wuu arkaa mobile-ka</li>
+      <li>Admin wuxuu jadwaleeyaa <strong>Match</strong> → Mobile Schedule wuu cusboonaadaa</li>
+      <li>Admin wuxuu diraa <strong>News + sawir</strong> → Banner mobile Dashboard-ka</li>
+      <li>Admin wuxuu diraa <strong>Notification</strong> → Push telefoonka + liiska app-ka</li>
+    </ul>
+  </div>
+
+  <!-- Slide 7: Tech -->
+  <div class="slide" data-duration="7000">
+    <h2>Technology Stack</h2>
+    <div class="diagram">
+      <div class="box admin">Admin<br>React + Vite</div>
+      <div class="box mobile">Mobile<br>React Native + Expo</div>
+      <div class="box backend">API<br>Express + JWT</div>
+      <div class="box db">DB<br>MongoDB</div>
+    </div>
+    <p style="margin-top:28px">Android APK ✅ · iPhone (Expo) ✅ · Web Browser ✅</p>
+  </div>
+
+  <!-- Slide 8: End -->
+  <div class="slide" data-duration="6000">
+    <div class="logo">✅</div>
+    <h1>Mahadsanid!</h1>
+    <h2>District Sports Management System</h2>
+    <p class="subtitle" style="margin-top:16px">System buuxa oo maamulaya ciyaaraha degmada</p>
+    <p style="margin-top:24px">Admin · Coach · Team — dhammaan hal platform</p>
+  </div>
+
+  <div class="controls">
+    <button class="secondary" id="prev">◀ Prev</button>
+    <button id="playPause">⏸ Pause</button>
+    <button class="secondary" id="next">Next ▶</button>
+    <button id="fullscreen">⛶ Fullscreen</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const progress = document.getElementById('progress');
+    const counter = document.getElementById('counter');
+    const playBtn = document.getElementById('playPause');
+    let current = 0;
+    let playing = true;
+    let timer = null;
+
+    function showSlide(n) {
+      slides.forEach((s, i) => s.classList.toggle('active', i === n));
+      current = n;
+      counter.textContent = `${n + 1} / ${slides.length}`;
+      progress.style.width = `${((n + 1) / slides.length) * 100}%`;
+      clearTimeout(timer);
+      if (playing) scheduleNext();
+    }
+
+    function scheduleNext() {
+      const duration = parseInt(slides[current].dataset.duration || 6000, 10);
+      timer = setTimeout(() => {
+        if (current < slides.length - 1) showSlide(current + 1);
+        else showSlide(0);
+      }, duration);
+    }
+
+    document.getElementById('next').onclick = () => showSlide(Math.min(current + 1, slides.length - 1));
+    document.getElementById('prev').onclick = () => showSlide(Math.max(current - 1, 0));
+    playBtn.onclick = () => {
+      playing = !playing;
+      playBtn.textContent = playing ? '⏸ Pause' : '▶ Play';
+      if (playing) scheduleNext();
+      else clearTimeout(timer);
+    };
+    document.getElementById('fullscreen').onclick = () => {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    };
+
+    scheduleNext();
+  </script>
+</body>
+</html>

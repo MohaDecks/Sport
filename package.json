@@ -1,0 +1,18 @@
+{
+  "name": "district-sports-management-system",
+  "private": true,
+  "version": "1.0.0",
+  "description": "District Sports Management System — monorepo deploy scripts",
+  "scripts": {
+    "dev": "concurrently -n backend,admin -c blue,green \"npm run dev --prefix backend\" \"npm run dev --prefix admin-portal\"",
+    "install:all": "npm install --prefix backend && npm install --prefix admin-portal && npm install --prefix mobile-app",
+    "build:admin": "npm run build --prefix admin-portal",
+    "build:apk": "bash scripts/build-apk.sh",
+    "deploy": "bash scripts/deploy.sh",
+    "pm2:start": "bash scripts/pm2.sh start",
+    "pm2:reload": "bash scripts/pm2.sh reload"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}

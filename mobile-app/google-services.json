@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "704386041234",
+    "project_id": "corenest-2087c",
+    "storage_bucket": "corenest-2087c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704386041234:android:d5a4d952b9b56d0b982d4b",
+        "android_client_info": {
+          "package_name": "com.districtsports.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDk1isL5rdTTyRTHYLw0CWe8rAZ9De4Jvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Git post-receive hook — server-ka ku rakib:
+#   cp scripts/git-hooks/post-receive.example /opt/dsms.git/hooks/post-receive
+#   chmod +x /opt/dsms.git/hooks/post-receive
+#
+# Kadib: git push production main
+
+set -euo pipefail
+
+DEPLOY_DIR="/opt/dsms"
+BRANCH="main"
+
+while read -r oldrev newrev refname; do
+  branch="${refname#refs/heads/}"
+  if [ "$branch" = "$BRANCH" ]; then
+    echo "==> Deploy $BRANCH → $DEPLOY_DIR"
+    git --work-tree="$DEPLOY_DIR" --git-dir="$(dirname "$0")/.." checkout -f "$BRANCH"
+    cd "$DEPLOY_DIR"
+    npm run install:all
+    sudo PM2_CMD="sudo pm2" npm run deploy
+  fi
+done
