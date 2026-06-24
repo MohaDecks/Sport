@@ -129,7 +129,7 @@ sudo bash scripts/server-setup.sh
 git clone <repo-url> /opt/dsms && cd /opt/dsms
 cp .env.production.example .env.production
 # Ku samee backend/.env (MongoDB, JWT_SECRET, iwm.)
-npm run install:all
+npm run install:server
 sudo PM2_CMD="sudo pm2" npm run deploy
 ```
 
@@ -137,13 +137,12 @@ sudo PM2_CMD="sudo pm2" npm run deploy
 
 ```bash
 cd /opt/dsms
-git pull && npm run install:all && sudo PM2_CMD="sudo pm2" npm run deploy
+git pull && npm run install:server && sudo PM2_CMD="sudo pm2" npm run deploy
 ```
 
 Deploy-ku wuxuu:
 1. Dhisaa admin portal (`admin-portal/dist`)
-2. Dhisaa Android APK (`backend/public/releases/district-sports.apk`)
-3. Dib u bilaabaa backend PM2
+2. Dib u bilaabaa backend PM2 (admin + API hal link)
 
 ### Links
 
@@ -151,9 +150,8 @@ Deploy-ku wuxuu:
 |---------|-----|
 | Admin Portal | http://2.58.82.168:5001/ |
 | API Health | http://2.58.82.168:5001/api/health |
-| APK Download | http://2.58.82.168:5001/downloads/district-sports.apk |
 
-Haddii APK build-ku u baahan yahay in la dhaafo: `SKIP_APK_BUILD=1 npm run deploy`
+APK (mobile) waxaa lagu dhisaa kombuyuutarkaaga: `npm run build:apk` — server-ka Java/Android looma baahna.
 
 ## License
 

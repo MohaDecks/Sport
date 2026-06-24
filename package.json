@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "concurrently -n backend,admin -c blue,green \"npm run dev --prefix backend\" \"npm run dev --prefix admin-portal\"",
     "install:all": "npm install --prefix backend && npm install --prefix admin-portal && npm install --prefix mobile-app",
+    "install:server": "npm install --prefix backend && npm install --prefix admin-portal",
     "build:admin": "npm run build --prefix admin-portal",
     "build:apk": "bash scripts/build-apk.sh",
     "deploy": "bash scripts/deploy.sh",

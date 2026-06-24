@@ -19,21 +19,18 @@ export EXPO_PUBLIC_API_URL="${EXPO_PUBLIC_API_URL:-$API_URL}"
 
 echo "==> Deploy DSMS — API: $API_URL"
 
-echo "==> 1/3 Admin portal build..."
+echo "==> 1/2 Admin portal build..."
 npm run build:admin
 
-echo "==> 2/3 APK build..."
-if [ "${SKIP_APK_BUILD:-}" = "1" ]; then
-  echo "    SKIP_APK_BUILD=1 — APK waa la dhaafay"
-else
+if [ "${BUILD_APK:-}" = "1" ]; then
+  echo "==> APK build (BUILD_APK=1)..."
   npm run build:apk
 fi
 
-echo "==> 3/3 PM2 reload..."
+echo "==> 2/2 PM2 reload..."
 bash scripts/pm2.sh reload
 
 echo ""
 echo "Deploy dhammaaday!"
 echo "  Admin:    http://2.58.82.168:5001/"
 echo "  API:      http://2.58.82.168:5001/api/health"
-echo "  APK:      http://2.58.82.168:5001/downloads/district-sports.apk"
