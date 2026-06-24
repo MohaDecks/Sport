@@ -1,7 +1,5 @@
 const path = require('path');
-
 const backendDir = path.join(__dirname, 'backend');
-
 module.exports = {
   apps: [
     {
