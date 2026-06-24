@@ -18,6 +18,13 @@ export EXPO_PUBLIC_API_URL="${EXPO_PUBLIC_API_URL:-$API_URL}"
 
 echo "==> Deploy DSMS — API: $API_URL"
 
+if [ ! -f "$ROOT/backend/.env" ]; then
+  echo "ERROR: backend/.env ma jiro."
+  echo "  cp backend/.env.example backend/.env"
+  echo "  nano backend/.env   # MONGODB_URI, JWT_SECRET"
+  exit 1
+fi
+
 echo "==> 1/2 Admin portal build..."
 npm run build:admin
 
