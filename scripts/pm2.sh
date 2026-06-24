@@ -25,3 +25,6 @@ case "$ACTION" in
 esac
 
 "$PM2" save
+echo ""
+echo "==> PM2 processes:"
+"$PM2" list

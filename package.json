@@ -11,7 +11,8 @@
     "build:apk": "bash scripts/build-apk.sh",
     "deploy": "bash scripts/deploy.sh",
     "pm2:start": "bash scripts/pm2.sh start",
-    "pm2:reload": "bash scripts/pm2.sh reload"
+    "pm2:reload": "bash scripts/pm2.sh reload",
+    "pm2:list": "bash -c '${PM2_CMD:-pm2} list'"
   },
   "devDependencies": {
     "concurrently": "^9.2.0"

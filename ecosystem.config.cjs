@@ -1,9 +1,13 @@
+const path = require('path');
+
+const backendDir = path.join(__dirname, 'backend');
+
 module.exports = {
   apps: [
     {
       name: 'dsms-api',
-      cwd: './backend',
-      script: 'src/server.js',
+      cwd: backendDir,
+      script: path.join(backendDir, 'src/server.js'),
       instances: 1,
       autorestart: true,
       watch: false,
